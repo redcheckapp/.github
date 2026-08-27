@@ -1,0 +1,53 @@
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/babce0c5-0cc5-4576-8b41-a2b05998c3fa" alt="RedCheck Organization Banner" width="100%"/>
+</p>
+
+> An interactive time and task management ecosystem designed to prioritize daily workloads using artificial intelligence.
+
+Welcome to the official GitHub organization for **RedCheck**. Here you will find the source code, architecture, and deployment configurations for the entire platform. 
+
+RedCheck was engineered with a strict focus on performance, frictionless user experience, and scalable software architecture.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4e2b928e-003c-4845-b41c-0503bd607dc6" alt="RedCheck Platform Showcase" width="800"/>
+</p>
+
+## Repository Ecosystem
+
+To maintain a clean separation of concerns, the RedCheck infrastructure is divided into specialized micro-repositories:
+
+* **[redcheck-backend](https://github.com/redcheckapp/redcheck-backend):** The core API. Built with Java and Spring Boot. Handles stateless JWT authentication, complex business logic, MySQL database interactions, and the prompt engineering bridge with Google Gemini AI models.
+* **[redcheck-frontend](https://github.com/redcheckapp/redcheck-frontend):** The main Single Page Application (SPA). Built with React, TypeScript, and Tailwind CSS. Features dynamic agenda views, recurrent task management, and an interactive AI priority board.
+* **[redcheck-landing](https://github.com/redcheckapp/redcheck-landing):** The static presentation website. Built with Astro for zero-JS delivery by default and maximum SEO performance. Includes native internationalization (i18n) and smooth DOM animations.
+
+## Core Technology Stack
+
+**Frontend & UI**
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Astro](https://img.shields.io/badge/Astro-0C0E14?style=for-the-badge&logo=astro&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
+**Backend & Data**
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
+
+**Infrastructure**
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![NGINX](https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=white)
+
+## Infrastructure Overview
+
+The entire platform is designed to be self-hosted via containerization. 
+
+NGINX acts as the main entry point and reverse proxy. It routes global traffic between the static landing page on the root domain and the React application on the dedicated sub-domain, while securely proxying RESTful API requests to the isolated Spring Boot container network.
+
+<p align="center">
+  <img src="[INSERT_ARCHITECTURE_DIAGRAM_URL_HERE]" alt="RedCheck Architecture Diagram" width="800"/>
+</p>
+
+## Links & Resources
+
+* **Official Website:** [redcheckapp.com](https://redcheckapp.com)
+* **Web Application:** [my.redcheckapp.com](https://my.redcheckapp.com)
