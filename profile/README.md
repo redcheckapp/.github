@@ -98,10 +98,6 @@ graph TD
     Spring == "3. Persists AI Data &<br>App State (TCP 3306)" ==> MySQL
 ```
 
-<p align="center">
-  <img src="[INSERT_ARCHITECTURE_DIAGRAM_URL_HERE]" alt="RedCheck Architecture Diagram" width="800"/>
-</p>
-
 ## Links & Resources
 
 * **Official Website:** [redcheckapp.com](https://redcheckapp.com)
