@@ -8,9 +8,18 @@ Welcome to the official GitHub organization for **RedCheck**. Here you will find
 
 RedCheck was engineered with a strict focus on performance, frictionless user experience, and scalable software architecture.
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/4e2b928e-003c-4845-b41c-0503bd607dc6" alt="RedCheck Platform Showcase" width="800"/>
-</p>
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><b>Landing Page (Astro)</b></td>
+      <td align="center"><b>Web Application (React)</b></td>
+    </tr>
+    <tr>
+      <td><img src="https://github.com/user-attachments/assets/906e0098-9208-4a4a-a858-fdf76c02f391" alt="RedCheck Landing Page Showcase" width="450"/></td>
+      <td><img src="https://github.com/user-attachments/assets/4e2b928e-003c-4845-b41c-0503bd607dc6" alt="RedCheck Platform Showcase" width="450"/></td>
+    </tr>
+  </table>
+</div>
 
 ## Repository Ecosystem
 
