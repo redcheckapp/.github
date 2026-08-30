@@ -52,6 +52,52 @@ The entire platform is designed to be self-hosted via containerization.
 
 NGINX acts as the main entry point and reverse proxy. It routes global traffic between the static landing page on the root domain and the React application on the dedicated sub-domain, while securely proxying RESTful API requests to the isolated Spring Boot container network.
 
+```mermaid
+graph TD
+    %% Node Styles
+    classDef client fill:#2d3436,stroke:#636e72,stroke-width:2px,color:#fff;
+    classDef proxy fill:#009639,stroke:#00732c,stroke-width:2px,color:#fff;
+    classDef frontend fill:#61DAFB,stroke:#00b8d4,stroke-width:2px,color:#000,font-weight:bold;
+    classDef static fill:#FF5D01,stroke:#d14d00,stroke-width:2px,color:#fff;
+    classDef backend fill:#6DB33F,stroke:#4a8229,stroke-width:2px,color:#fff;
+    classDef db fill:#00758F,stroke:#005c70,stroke-width:2px,color:#fff;
+    classDef external fill:#4285F4,stroke:#2b66c4,stroke-width:2px,color:#fff;
+
+    %% External Elements
+    Users(("Users<br>Browser / Mobile")):::client
+    Gemini["Google Gemini AI<br>(External API)"]:::external
+
+    %% VPS Server
+    subgraph VPS ["Ubuntu Server (Host)"]
+        style VPS fill:none,stroke:#636e72,stroke-width:2px,stroke-dasharray: 5 5
+
+        NGINX["NGINX API Gateway<br>(Ports 80/443 + SSL)"]:::proxy
+
+        %% Docker Internal Network
+        subgraph DockerNet ["Internal Network: redcheck-net"]
+            style DockerNet fill:none,stroke:#0984e3,stroke-width:2px
+            
+            Landing["Container: Landing<br>(Astro)"]:::static
+            React["Container: Frontend<br>(React + Vite)"]:::frontend
+            Spring["Container: Backend<br>(Spring Boot)"]:::backend
+            MySQL[("Container: Database<br>(MySQL 8.0)")]:::db
+        end
+    end
+
+    %% Traffic & Routing Flow
+    Users -- "HTTPS" --> NGINX
+    
+    NGINX -- "redcheckapp.com<br>(+ 301 Redirect from redcheck.es)" --> Landing
+    NGINX -- "my.redcheckapp.com" --> React
+    
+    React -. "API Calls" .-> Spring
+    
+    %% AI & Data Persistence Flow
+    Spring -- "1. Sends Context & Prompt" --> Gemini
+    Gemini -. "2. Returns AI Response" .-> Spring
+    Spring == "3. Persists AI Data &<br>App State (TCP 3306)" ==> MySQL
+```
+
 <p align="center">
   <img src="[INSERT_ARCHITECTURE_DIAGRAM_URL_HERE]" alt="RedCheck Architecture Diagram" width="800"/>
 </p>
