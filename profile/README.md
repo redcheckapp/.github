@@ -61,11 +61,13 @@ graph TD
     classDef static fill:#FF5D01,stroke:#d14d00,stroke-width:2px,color:#fff;
     classDef backend fill:#6DB33F,stroke:#4a8229,stroke-width:2px,color:#fff;
     classDef db fill:#00758F,stroke:#005c70,stroke-width:2px,color:#fff;
+    classDef aiengine fill:#3670A0,stroke:#29567c,stroke-width:2px,color:#fff;
+    classDef vector fill:#FF4F00,stroke:#c43c00,stroke-width:2px,color:#fff;
     classDef external fill:#4285F4,stroke:#2b66c4,stroke-width:2px,color:#fff;
 
     %% External Elements
     Users(("Users<br>Browser / Mobile")):::client
-    Gemini["Google Gemini AI<br>(External API)"]:::external
+    Gemini["Google Gemini 2.5 Flash<br>(External API)"]:::external
 
     %% VPS Server
     subgraph VPS ["Ubuntu Server (Host)"]
@@ -81,6 +83,14 @@ graph TD
             React["Container: Frontend<br>(React + Vite)"]:::frontend
             Spring["Container: Backend<br>(Spring Boot)"]:::backend
             MySQL[("Container: Database<br>(MySQL 8.0)")]:::db
+
+            %% SmartCheck AI Sub-module
+            subgraph AIModule ["SmartCheck AI Module"]
+                style AIModule fill:none,stroke:#3670A0,stroke-width:2px,stroke-dasharray: 5 5
+                
+                SmartCheck["Container: SmartCheck<br>(Python / FastAPI)"]:::aiengine
+                ChromaDB[("Container: Vector DB<br>(ChromaDB)")]:::vector
+            end
         end
     end
 
@@ -93,9 +103,13 @@ graph TD
     React -. "API Calls" .-> Spring
     
     %% AI & Data Persistence Flow
-    Spring -- "1. Sends Context & Prompt" --> Gemini
-    Gemini -. "2. Returns AI Response" .-> Spring
-    Spring == "3. Persists AI Data &<br>App State (TCP 3306)" ==> MySQL
+    Spring -- "1. Sends Context & Tasks" --> SmartCheck
+    SmartCheck == "2. RAG Context Retrieval" ==> ChromaDB
+    SmartCheck -- "3. RAG Augmented Prompt" --> Gemini
+    Gemini -. "4. AI Priority JSON" .-> SmartCheck
+    SmartCheck -. "5. Validated Daily Plan" .-> Spring
+    
+    Spring == "6. Persists AI Data &<br>App State (TCP 3306)" ==> MySQL
 ```
 
 ## Links & Resources
