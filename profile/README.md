@@ -52,6 +52,7 @@ The entire platform is designed to be self-hosted via containerization.
 
 NGINX acts as the main entry point and reverse proxy. It routes global traffic between the static landing page on the root domain and the React application on the dedicated sub-domain, while securely proxying RESTful API requests to the isolated Spring Boot container network.
 
+
 ```mermaid
 graph TD
     %% Node Styles
@@ -68,6 +69,7 @@ graph TD
     %% External Elements
     Users(("Users<br>Browser / Mobile")):::client
     Gemini["Google Gemini 2.5 Flash<br>(External API)"]:::external
+    Resend["Resend<br>(Email API)"]:::external
 
     %% VPS Server
     subgraph VPS ["Ubuntu Server (Host)"]
@@ -110,6 +112,10 @@ graph TD
     SmartCheck -. "5. Validated Daily Plan" .-> Spring
     
     Spring == "6. Persists AI Data &<br>App State (TCP 3306)" ==> MySQL
+
+    %% Password Recovery Flow
+    Spring -- "Sends Password-Reset Email<br>(HTTPS API)" --> Resend
+    Resend -. "Delivers Reset Link" .-> Users
 ```
 
 ## Links & Resources
